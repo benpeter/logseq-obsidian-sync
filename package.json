@@ -1,0 +1,21 @@
+{
+  "name": "logseq-obsidian-sync",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Watches a Logseq graph folder and converts smartpen pages to Obsidian-native markdown in a vault.",
+  "bin": {
+    "logseq-obsidian-sync": "./src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.1"
+  }
+}
