@@ -22,7 +22,7 @@ describe('filename matcher', () => {
     expect(parseSmartpenFilename('journals/2026_05_26.md')).toBeNull();
   });
 
-  it('maps to Obsidian relative path', () => {
-    expect(toObsidianRelPath({book: 3017, page: 42})).toBe('Captures/B3017/P42.md');
+  it('maps to Obsidian relative path under _org/Books', () => {
+    expect(toObsidianRelPath({book: 3017, page: 42})).toBe('_org/Books/B3017/P42.md');
   });
 });

@@ -13,5 +13,5 @@ export function parseSmartpenFilename(relPath) {
 }
 
 export function toObsidianRelPath({ book, page }) {
-  return `Captures/B${book}/P${page}.md`;
+  return `_org/Books/B${book}/P${page}.md`;
 }

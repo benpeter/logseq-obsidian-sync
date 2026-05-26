@@ -41,7 +41,7 @@ describe('watcher', () => {
 
     await new Promise(r => setTimeout(r, 600));
 
-    const target = join(vaultDir, 'Captures/B3017/P42.md');
+    const target = join(vaultDir, '_org/Books/B3017/P42.md');
     expect(existsSync(target)).toBe(true);
     const content = readFileSync(target, 'utf8');
     expect(content).toMatch(/book: 3017/);
@@ -59,6 +59,6 @@ describe('watcher', () => {
     writeFileSync(join(logseqDir, 'pages', 'random.md'), 'unrelated');
     await new Promise(r => setTimeout(r, 600));
 
-    expect(existsSync(join(vaultDir, 'Captures'))).toBe(false);
+    expect(existsSync(join(vaultDir, '_org'))).toBe(false);
   });
 });

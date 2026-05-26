@@ -60,6 +60,12 @@ function parseBlocks(lines) {
         //  - Current bridge (v1.3+): top-level bullet text "## Raw Stroke Data"
         //  - Older bridge / synthetic fixtures: bullet prefixed with "stroke-data::"
         isStrokeData: text.startsWith('## Raw Stroke Data') || text.startsWith('stroke-data::'),
+        // Bridge writes the MyScript transcription under a top-level bullet
+        // whose text is "## Transcribed Content #Display_No_Properties"
+        // (the hashtag is a Logseq-only display directive). The actual content
+        // is in this block's children; the converter hoists them and renders
+        // a clean `## Transcription` section.
+        isTranscriptionHeader: text.startsWith('## Transcribed Content'),
       };
       while (stack[stack.length - 1].depth >= depth) stack.pop();
       stack[stack.length - 1].children.push(block);

@@ -20,7 +20,7 @@ if (!existsSync(vaultPath)) {
 }
 
 console.log(`[sync] watching ${logseqPagesDir}`);
-console.log(`[sync] writing to ${vaultPath}/Captures/`);
+console.log(`[sync] writing to ${vaultPath}/_org/Books/`);
 
 const watcher = await startWatcher({
   logseqPagesDir,
