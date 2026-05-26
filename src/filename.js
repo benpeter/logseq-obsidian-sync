@@ -16,5 +16,12 @@ export function parseSmartpenFilename(relPath) {
 
 export function toObsidianRelPath({ book, page }, aliases = {}) {
   const folder = notebookFolder(book, aliases);
-  return `_org/Notebooks/${folder}/P${page}.md`;
+  // When the folder is an alias, multiple Ncode book IDs may map to the same
+  // physical notebook, so page numbers can collide. Prefix the filename with
+  // the book ID to keep pages unambiguous. When the folder is the default
+  // `B<book>` form, the book is already in the folder name — leave the file
+  // as plain `P<page>.md`.
+  const isAliased = folder !== `B${book}`;
+  const filename = isAliased ? `B${book}-P${page}.md` : `P${page}.md`;
+  return `_org/Notebooks/${folder}/${filename}`;
 }
