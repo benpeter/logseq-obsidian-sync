@@ -41,7 +41,7 @@ describe('watcher', () => {
 
     await new Promise(r => setTimeout(r, 600));
 
-    const target = join(vaultDir, '_org/Books/B3017/P42.md');
+    const target = join(vaultDir, '_org/Notebooks/B3017/P42.md');
     expect(existsSync(target)).toBe(true);
     const content = readFileSync(target, 'utf8');
     expect(content).toMatch(/book: 3017/);

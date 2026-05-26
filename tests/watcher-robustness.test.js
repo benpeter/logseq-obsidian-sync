@@ -26,6 +26,6 @@ describe('watcher robustness', () => {
     writeFileSync(join(logseqDir, 'pages', 'smartpen___B1___P1.md'),
       'not valid logseq content at all just garbage');
     await new Promise(r => setTimeout(r, 600));
-    expect(existsSync(join(vaultDir, '_org/Books/B1/P1.md'))).toBe(true);
+    expect(existsSync(join(vaultDir, '_org/Notebooks/B1/P1.md'))).toBe(true);
   });
 });

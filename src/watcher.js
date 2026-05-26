@@ -5,6 +5,7 @@ import { isSmartpenPage, parseSmartpenFilename, toObsidianRelPath } from './file
 import { parseLogseqPage } from './parser.js';
 import { toObsidianMarkdown } from './converter.js';
 import { writeAtomic } from './writer.js';
+import { loadAliases } from './aliases.js';
 
 export async function startWatcher({ logseqPagesDir, vaultPath, stabilityThreshold = 1000, onSync = () => {} }) {
   const watcher = chokidar.watch(logseqPagesDir, {
@@ -24,7 +25,10 @@ export async function startWatcher({ logseqPagesDir, vaultPath, stabilityThresho
       const parsed = parseLogseqPage(content);
       const obsidianMd = toObsidianMarkdown(parsed);
       const ids = parseSmartpenFilename(rel);
-      const target = join(vaultPath, toObsidianRelPath(ids));
+      // Lazy-read aliases per event so newly edited aliases.json takes effect
+      // without restarting the daemon. Reads are millisecond-scale.
+      const aliases = loadAliases(vaultPath);
+      const target = join(vaultPath, toObsidianRelPath(ids, aliases));
       await writeAtomic(target, obsidianMd);
       onSync({ source: filePath, target, ids });
     } catch (err) {

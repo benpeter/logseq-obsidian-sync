@@ -22,7 +22,17 @@ describe('filename matcher', () => {
     expect(parseSmartpenFilename('journals/2026_05_26.md')).toBeNull();
   });
 
-  it('maps to Obsidian relative path under _org/Books', () => {
-    expect(toObsidianRelPath({book: 3017, page: 42})).toBe('_org/Books/B3017/P42.md');
+  it('maps to Obsidian relative path under _org/Notebooks by default', () => {
+    expect(toObsidianRelPath({book: 3017, page: 42})).toBe('_org/Notebooks/B3017/P42.md');
+  });
+
+  it('uses alias folder when alias is present', () => {
+    expect(toObsidianRelPath({book: 3017, page: 42}, {'3017': 'Journal 2026'}))
+      .toBe('_org/Notebooks/Journal 2026/P42.md');
+  });
+
+  it('falls back to B<book> when alias map does not include the book', () => {
+    expect(toObsidianRelPath({book: 9999, page: 1}, {'3017': 'Other'}))
+      .toBe('_org/Notebooks/B9999/P1.md');
   });
 });
